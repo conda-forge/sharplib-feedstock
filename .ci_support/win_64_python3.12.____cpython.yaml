@@ -3,9 +3,9 @@ c_stdlib:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge sharplib_rc
+- conda-forge main
 cxx_compiler:
-- vs2019
+- vs2022
 pin_run_as_build:
   python:
     min_pin: x.x

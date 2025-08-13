@@ -1,5 +1,5 @@
 {% set name = "SHARPlib" %}
-{% set version = "1.0.0rc4" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
-  sha256: 6a791878465c32bfaf95b8a94a00a237e9c6671dad87143a157ef8179ebb4129
+  sha256: 7c9920a9d045e992776f1c5774bfd29619df3ef4bdf95579c10199ee567935d5
 
 build:
   skip: true  # [py<310]
