@@ -1,5 +1,5 @@
 {% set name = "SHARPlib" %}
-{% set version = "1.0.0rc4" %}
+{% set version = "1.0.0" %}
 
 package:
   name: {{ name|lower }}
