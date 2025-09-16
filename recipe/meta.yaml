@@ -18,13 +18,14 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
+    - cross-python_{{ target_platform }}
     - cmake
     - make
   host:
     - python
     - scikit-build-core
     - setuptools_scm
-    - nanobind >=2.0.0
+    - nanobind >=2.9.2
     - pip
   run:
     - python
