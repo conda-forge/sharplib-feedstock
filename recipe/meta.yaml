@@ -18,9 +18,12 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
-    - cross-python_{{ target_platform }}
     - cmake
     - make
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
   host:
     - python
     - scikit-build-core
