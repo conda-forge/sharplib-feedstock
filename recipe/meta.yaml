@@ -57,6 +57,7 @@ outputs:
 
   - name: {{ name|lower }}-stubs
     version: {{ version }}
+    requirements: {{ name|lower }}
     build:
       noarch: python
       script:
