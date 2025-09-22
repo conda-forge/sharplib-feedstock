@@ -12,7 +12,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<{{ python_min }}]
+  skip: true  # [py<310]
 
 outputs:
   - name: {{ name|lower }}
