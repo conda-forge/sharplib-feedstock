@@ -9,44 +9,69 @@ source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
   md5: 404e1a1bac3579273a87a126eed71b9f
 
-build:
-  skip: true  # [py<310]
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+outputs:
+  - name: {{ name|lower }}
+    script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    build:
+      # We skip Python versions older than 3.10
+      skip: true  # [py<310]
 
-requirements:
-  build:
-    - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
-    - python
-    - cross-python_{{ target_platform }}    # [build_platform != target_platform]
-    - cmake
-    - make
-  host:
-    - python
-    - pip
-    - nanobind >=2.9.2
-    - numpy >=1.23.0
-    - scikit-build-core
-    - setuptools_scm
-  run:
-    - python
-    - numpy >=1.23.0
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+        - {{ stdlib("c") }}
+        - python
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+        - cmake
+        - make
+      host:
+        - python
+        - pip
+        - nanobind >=2.9.2
+        - numpy >=1.23.0
+        - scikit-build-core
+        - setuptools_scm
+      run:
+        - python
+        - numpy >=1.23.0
+        - {{ pin_subpackage('sharplib-stubs', exact=True) }}
 
-test:
-  source_files:
-    - tests/python
-    - data/test_snds
-  imports:
-    - nwsspc.sharp.calc
-  commands:
-    - pip check
-    - pytest 
-  requires:
-    - pip
-    - pandas
-    - fastparquet
-    - pytest
+    test:
+      source_files:
+        - tests/python
+        - data/test_snds
+      imports:
+        - nwsspc.sharp.calc
+      commands:
+        - pip check
+        - pytest
+      requires:
+        - pip
+        - pandas
+        - fastparquet
+        - pytest
+
+  - name: {{ name|lower }}-stubs
+    version: {{ version }}
+    build:
+      noarch: python
+      script:
+        - STUBS_DIR=${SRC_DIR}/build/lib/nwsspc/sharp
+        - INSTALL_DIR=${PREFIX}/lib/python${PY_VER}/site-packages/nwsspc/sharp
+        - mkdir -p ${INSTALL_DIR}
+        - cp ${STUBS_DIR}/*.pyi ${INSTALL_DIR}/
+        - cp ${STUBS_DIR}/py.typed ${INSTALL_DIR}/
+
+    requirements:
+      host:
+        - python
+      run:
+        - python
+
+    test:
+      commands:
+        - test -f $PREFIX/lib/python${PY_VER}/site-packages/nwsspc/sharp/__init__.pyi
+        - test -f $PREFIX/lib/python${PY_VER}/site-packages/nwsspc/sharp/py.typed
 
 about:
   home: https://github.com/keltonhalbert/SHARPlib
