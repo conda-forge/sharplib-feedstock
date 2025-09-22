@@ -6,8 +6,9 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
-  sha256: 77deff7b1a681556050f4836fc7192f177e98b7bba31fd4e5153ccc5179de1d0 
+  git_url: https://github.com/keltonhalbert/SHARPlib.git
+  git_rev: 1.1.0
+  git_depth: 1
 
 build:
   skip: true  # [py<310]
