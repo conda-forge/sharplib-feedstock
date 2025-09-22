@@ -67,7 +67,7 @@ outputs:
 
     requirements:
       build:
-        - {{ pin_subpackage('sharplib', exacttrue) }}
+        - {{ pin_subpackage('sharplib', exact=True) }}
       host:
         - python {{ python_min }}
       run:
