@@ -57,7 +57,6 @@ outputs:
 
   - name: {{ name|lower }}-stubs
     version: {{ version }}
-    requirements: {{ name|lower }}
     build:
       noarch: python
       script:
@@ -68,6 +67,8 @@ outputs:
         - cp ${STUBS_DIR}/py.typed ${INSTALL_DIR}/
 
     requirements:
+      build:
+        - {{ pin_subpackage('sharplib', exacttrue) }}
       host:
         - python {{ python_min }}
       run:
