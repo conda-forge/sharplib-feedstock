@@ -1,13 +1,13 @@
 {% set name = "SHARPlib" %}
-{% set version = "1.1.0" %}
+{% set version = "1.1.0.post1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  git_url: https://github.com/keltonhalbert/SHARPlib.git
-  git_rev: v1.1.0
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
+  md5: 404e1a1bac3579273a87a126eed71b9f
 
 build:
   skip: true  # [py<310]
