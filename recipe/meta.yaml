@@ -16,18 +16,23 @@ build:
 
 outputs:
   - name: {{ name|lower }}
+    script: 
+    - "{{ PREFIX }}/bin/python -m pip install . -vv --no-deps --no-build-isolation"  # [unix]
+    - "{{ PREFIX }}\\python.exe -m pip install . -vv --no-deps --no-build-isolation" # [win]
+
+    requirements:
     script: /bin/bash -x -e build.sh 
 
     requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
-        - python {{ python_min }}
+        - python 
         - cross-python_{{ target_platform }}  # [build_platform != target_platform]
         - cmake
         - make
       host:
-        - python {{ python_min }}
+        - python 
         - pip
         - nanobind >=2.9.2
         - numpy >=1.23.0
@@ -48,7 +53,7 @@ outputs:
         - pip check
         - pytest
       requires:
-        - python {{ python_min }}
+        - python >= {{ python_min }}
         - pip
         - pandas
         - fastparquet
