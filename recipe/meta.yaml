@@ -17,8 +17,8 @@ build:
 outputs:
   - name: {{ name|lower }}
     script: 
-      - build.sh  # [not win]
-      - build.bat # [win]
+      - build.sh   # [not win]
+      - build.bat  # [win]
 
     requirements:
       build:
@@ -29,7 +29,7 @@ outputs:
         - cmake
         - make
       host:
-        - python >= {python_min} 
+        - python >= {{python_min}} 
         - pip
         - nanobind >=2.9.2
         - numpy >=1.23.0
