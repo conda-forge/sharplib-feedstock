@@ -27,9 +27,9 @@ outputs:
         - python 
         - cross-python_{{ target_platform }}  # [build_platform != target_platform]
         - cmake
-        - make
+        - make  # [not win]
       host:
-        - python >= {{python_min}} 
+        - python {{ python_min }} 
         - pip
         - nanobind >=2.9.2
         - numpy >=1.23.0
@@ -60,11 +60,16 @@ outputs:
     build:
       noarch: python
       script:
-        - STUBS_DIR=${SRC_DIR}/build/lib/nwsspc/sharp
-        - INSTALL_DIR=${PREFIX}/lib/python${PY_VER}/site-packages/nwsspc/sharp
-        - mkdir -p ${INSTALL_DIR}
-        - cp ${STUBS_DIR}/*.pyi ${INSTALL_DIR}/
-        - cp ${STUBS_DIR}/py.typed ${INSTALL_DIR}/
+        - STUBS_DIR=${SRC_DIR}/build/lib/nwsspc/sharp       # [not win]
+        - INSTALL_DIR=${PREFIX}/lib/python${PY_VER}/site-packages/nwsspc/sharp  # [not win]
+        - mkdir -p ${INSTALL_DIR}                           # [not win]
+        - cp ${STUBS_DIR}/*.pyi ${INSTALL_DIR}/              # [not win]
+        - cp ${STUBS_DIR}/py.typed ${INSTALL_DIR}/           # [not win]
+        - set "STUBS_DIR=%SRC_DIR%\\build\\lib\\nwsspc\\sharp"              # [win]
+        - set "INSTALL_DIR=%PREFIX%\\Lib\\site-packages\\nwsspc\\sharp"    # [win]
+        - mkdir %INSTALL_DIR%                                             # [win]
+        - copy %STUBS_DIR%\\*.pyi %INSTALL_DIR%\\                           # [win]
+        - copy %STUBS_DIR%\\py.typed %INSTALL_DIR%\\                       # [win]
 
     requirements:
       build:
