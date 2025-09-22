@@ -16,7 +16,7 @@ build:
 
 outputs:
   - name: {{ name|lower }}
-    script: build.sh 
+    script: /bin/bash -x -e build.sh 
 
     requirements:
       build:
