@@ -20,9 +20,6 @@ outputs:
     - "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
 
     requirements:
-    script: /bin/bash -x -e build.sh 
-
-    requirements:
       build:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
