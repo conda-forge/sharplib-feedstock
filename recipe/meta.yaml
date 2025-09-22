@@ -1,5 +1,6 @@
 {% set name = "SHARPlib" %}
 {% set version = "1.1.0.post1" %}
+{% set python_min = "3.10" %}
 
 package:
   name: {{ name|lower }}
@@ -9,12 +10,13 @@ source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
   md5: 404e1a1bac3579273a87a126eed71b9f
 
+build:
+  number: 0
+  skip: true  # [py<{{ python_min }}]
+
 outputs:
   - name: {{ name|lower }}
     script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-    build:
-      # We skip Python versions older than 3.10
-      skip: true  # [py<310]
 
     requirements:
       build:
@@ -25,14 +27,14 @@ outputs:
         - cmake
         - make
       host:
-        - python
+        - python {{ python_min }}
         - pip
         - nanobind >=2.9.2
         - numpy >=1.23.0
         - scikit-build-core
         - setuptools_scm
       run:
-        - python
+        - python >={{ python_min }}
         - numpy >=1.23.0
         - {{ pin_subpackage('sharplib-stubs', exact=True) }}
 
@@ -46,6 +48,7 @@ outputs:
         - pip check
         - pytest
       requires:
+        - python {{ python_min }}
         - pip
         - pandas
         - fastparquet
@@ -66,7 +69,7 @@ outputs:
       host:
         - python
       run:
-        - python
+        - python >={{ python_min }}
 
     test:
       commands:
