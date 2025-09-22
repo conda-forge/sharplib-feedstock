@@ -17,8 +17,7 @@ build:
 outputs:
   - name: {{ name|lower }}
     script: 
-    - "{{ PREFIX }}/bin/python -m pip install . -vv --no-deps --no-build-isolation"  # [unix]
-    - "{{ PREFIX }}\\python.exe -m pip install . -vv --no-deps --no-build-isolation" # [win]
+    - "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
 
     requirements:
     script: /bin/bash -x -e build.sh 
