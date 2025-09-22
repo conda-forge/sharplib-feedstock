@@ -37,7 +37,6 @@ outputs:
       run:
         - python >={{ python_min }}
         - numpy >=1.23.0
-        - {{ pin_subpackage('sharplib-stubs', exact=True) }}
 
     test:
       source_files:
