@@ -1,5 +1,5 @@
 {% set name = "SHARPlib" %}
-{% set version = "1.0.2" %}
+{% set version = "1.1.0.post1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
-  sha256: 43a4b2cbf188c62961ee5483dbf1049dfaa42ef52fd0b751cb06e3bda4861fbc 
+  sha256: 59b5d57a8f8696063d6f6e90018673c1b57cb4ff7a211880256fbf3af28a8a0f
 
 build:
   skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -41,7 +41,7 @@ test:
     - nwsspc.sharp.calc
   commands:
     - pip check
-    - pytest 
+    - pytest
   requires:
     - pip
     - pandas
