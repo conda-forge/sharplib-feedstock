@@ -1,5 +1,5 @@
 {% set name = "SHARPlib" %}
-{% set version = "1.1.0.post2" %}
+{% set version = "1.1.0.post3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,19 +7,19 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
-  md5: be9ded0b818730136a1cac664dc84d46 
+  md5: 9d48e7aee6d8537d805dcb018e888b28
 
 build:
   skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - cmake
-    - make 
+    - make
     - python                               # [build_platform != target_platform]
     - cross-python_{{ target_platform }}   # [build_platform != target_platform]
     - numpy >=2.0.0                        # [build_platform != target_platform]
@@ -28,7 +28,7 @@ requirements:
     - python
     - pip
     - nanobind >=2.9.2
-    - numpy >=2.0.0 
+    - numpy >=2.0.0
     - scikit-build-core
     - setuptools_scm
   run:
@@ -43,7 +43,7 @@ test:
     - nwsspc.sharp.calc
   commands:
     - pip check
-    - pytest 
+    - pytest
   requires:
     - pip
     - pandas
