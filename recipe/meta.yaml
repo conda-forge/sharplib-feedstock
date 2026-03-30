@@ -1,5 +1,5 @@
 {% set name = "SHARPlib" %}
-{% set version = "1.3.0" %}
+{% set version = "1.3.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sharplib-{{ version }}.tar.gz
-  md5: 7a77bbb65a6cb7d8923ac31caac4ad9d
+  md5: 837df9813b2b19847769d7d183c8bdda
 
 build:
   skip: true  # [py<310]
